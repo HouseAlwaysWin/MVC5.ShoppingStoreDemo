@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using ShoppingStore.Providers;
 using ShoppingStore.Models;
+using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Domain.IdentityModels.Managers;
 
 namespace ShoppingStore
 {
@@ -23,13 +25,16 @@ namespace ShoppingStore
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext(StoreDbContext.Create);
+            app.CreatePerOwinContext<StoreUserManager>(StoreUserManager.Create);
+            app.CreatePerOwinContext<StoreRoleManager>(StoreRoleManager.Create);
+            app.CreatePerOwinContext<StoreSignInManager>(StoreSignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
 
             // Configure the application for OAuth based flow
             PublicClientId = "self";

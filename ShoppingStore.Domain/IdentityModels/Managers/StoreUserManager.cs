@@ -17,7 +17,8 @@ namespace ShoppingStore.Domain.IdentityModels.Managers
 
         public static StoreUserManager Create(IdentityFactoryOptions<StoreUserManager> options, IOwinContext context)
         {
-            var manager = new StoreUserManager(new UserStore<StoreUser>(context.Get<StoreDbContext>()));
+            var manager = new StoreUserManager(
+                new UserStore<StoreUser>(context.Get<StoreDbContext>()));
             // Configure validation logic for user names
             manager.UserValidator = new UserValidator<StoreUser>(manager)
             {

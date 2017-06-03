@@ -86,7 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="IdentityModels\2FServices\EmailService.cs" />
+    <Compile Include="IdentityModels\2FServices\SmsService.cs" />
     <Compile Include="IdentityModels\Managers\StoreRoleManager.cs" />
+    <Compile Include="IdentityModels\Managers\StoreSignInManager.cs" />
     <Compile Include="IdentityModels\Managers\StoreUserManager.cs" />
     <Compile Include="IdentityModels\StoreRole.cs" />
     <Compile Include="IdentityModels\StoreUser.cs" />
