@@ -16,6 +16,10 @@ using Microsoft.Owin.Security.OAuth;
 using ShoppingStore.Models;
 using ShoppingStore.Providers;
 using ShoppingStore.Results;
+using ShoppingStore.Domain.IdentityModels.Managers;
+using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Domain.Infrastructure;
+using ShoppingStore.Domain.ViewModels;
 
 namespace ShoppingStore.Controllers
 {
@@ -23,25 +27,28 @@ namespace ShoppingStore.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+
         private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
+        private ModelFactory _modelFactory;
+        private AppUserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager,
+        public AccountController(AppUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public ApplicationUserManager UserManager
+        public AppUserManager UserManager
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ??
+                    Request.GetOwinContext().GetUserManager<AppUserManager>();
             }
             private set
             {
@@ -51,12 +58,41 @@ namespace ShoppingStore.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+
+        public IHttpActionResult GetUsers()
+        {
+            return Ok(UserManager.Users);
+        }
+
+        [Route("GetUserByName")]
+        public async Task<IHttpActionResult> GetUserByName(string name)
+        {
+            var user = await UserManager.FindByNameAsync(name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [Route("GetUserById")]
+        public async Task<IHttpActionResult> GetUserById(string id)
+        {
+            var user = UserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(
+                User.Identity as ClaimsIdentity);
 
             return new UserInfoViewModel
             {
@@ -125,7 +161,7 @@ namespace ShoppingStore.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -250,7 +286,7 @@ namespace ShoppingStore.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            AppUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -258,9 +294,9 @@ namespace ShoppingStore.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -321,23 +357,35 @@ namespace ShoppingStore.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new AppUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Level = 3,
+                JoinDate = DateTime.Now.Date
+            };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result =
+                await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            Uri locationHeader =
+                new Uri(Url.Link("GetUserById", new { id = user.Id }));
+
+            return Created(locationHeader, TheModelFactory.Create(user));
         }
 
         // POST api/Account/RegisterExternal
@@ -357,7 +405,7 @@ namespace ShoppingStore.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new AppUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
@@ -368,7 +416,7 @@ namespace ShoppingStore.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
@@ -386,9 +434,22 @@ namespace ShoppingStore.Controllers
 
         #region Helpers
 
+
         private IAuthenticationManager Authentication
         {
             get { return Request.GetOwinContext().Authentication; }
+        }
+
+        private ModelFactory TheModelFactory
+        {
+            get
+            {
+                if (_modelFactory == null)
+                {
+                    _modelFactory = new ModelFactory(this.Request, this.UserManager);
+                }
+                return _modelFactory;
+            }
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

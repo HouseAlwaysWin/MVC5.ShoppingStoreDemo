@@ -10,6 +10,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ShoppingStore.Models;
+using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Domain.IdentityModels.Managers;
 
 namespace ShoppingStore.Providers
 {
@@ -29,9 +31,9 @@ namespace ShoppingStore.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            var userManager = context.OwinContext.GetUserManager<AppUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            AppUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {

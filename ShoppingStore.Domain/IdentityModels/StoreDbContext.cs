@@ -3,10 +3,10 @@
 namespace ShoppingStore.Domain.IdentityModels
 {
 
-    public class StoreDbContext : IdentityDbContext<StoreUser>
+    public class StoreDbContext : IdentityDbContext<AppUser>
     {
         public StoreDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ShoppingStoreDb", throwIfV1Schema: false)
         {
         }
 

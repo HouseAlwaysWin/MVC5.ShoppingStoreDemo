@@ -12,6 +12,8 @@ using ShoppingStore.Providers;
 using ShoppingStore.Models;
 using ShoppingStore.Domain.IdentityModels;
 using ShoppingStore.Domain.IdentityModels.Managers;
+using Microsoft.Owin.Cors;
+using System.Web.Http;
 
 namespace ShoppingStore
 {
@@ -24,16 +26,21 @@ namespace ShoppingStore
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(StoreDbContext.Create);
-            app.CreatePerOwinContext<StoreUserManager>(StoreUserManager.Create);
-            app.CreatePerOwinContext<StoreRoleManager>(StoreRoleManager.Create);
-            app.CreatePerOwinContext<StoreSignInManager>(StoreSignInManager.Create);
+            HttpConfiguration httpConfig = new HttpConfiguration();
+
+            ConfigureOAuthTokenGeneration(app);
+
+            app.UseCors(CorsOptions.AllowAll);
+
+            app.UseWebApi(httpConfig);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+
+
 
 
             // Configure the application for OAuth based flow
@@ -70,5 +77,17 @@ namespace ShoppingStore
             //    ClientSecret = ""
             //});
         }
+
+        private void ConfigureOAuthTokenGeneration(IAppBuilder app)
+        {
+            // Configure the db context and user manager to use a single instance per request
+            app.CreatePerOwinContext(StoreDbContext.Create);
+            app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
+            app.CreatePerOwinContext<AppRoleManager>(AppRoleManager.Create);
+            app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
+
+        }
+
+
     }
 }

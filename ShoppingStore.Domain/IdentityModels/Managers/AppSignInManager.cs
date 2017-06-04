@@ -11,27 +11,28 @@ using System.Threading.Tasks;
 
 namespace ShoppingStore.Domain.IdentityModels.Managers
 {
-    public class StoreSignInManager : SignInManager<StoreUser, string>
+    public class AppSignInManager : SignInManager<AppUser, string>
     {
-        public StoreSignInManager(
-            StoreUserManager userMgr, IAuthenticationManager authMgr) :
+        public AppSignInManager(
+            AppUserManager userMgr, IAuthenticationManager authMgr) :
             base(userMgr, authMgr)
         {
         }
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(
-            StoreUser user)
+            AppUser user)
         {
             return user.GenerateUserIdentityAsync(
-                (StoreUserManager)UserManager, DefaultAuthenticationTypes.ApplicationCookie);
+                (AppUserManager)UserManager,
+                DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        public static StoreSignInManager Create(
-            IdentityFactoryOptions<StoreSignInManager> options,
+        public static AppSignInManager Create(
+            IdentityFactoryOptions<AppSignInManager> options,
             IOwinContext context)
         {
-            return new StoreSignInManager(
-                context.GetUserManager<StoreUserManager>(),
+            return new AppSignInManager(
+                context.GetUserManager<AppUserManager>(),
                 context.Authentication);
         }
     }

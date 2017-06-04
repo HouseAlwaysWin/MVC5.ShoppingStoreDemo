@@ -8,19 +8,21 @@ namespace ShoppingStore.Domain.IdentityModels.Managers
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
-    public class StoreUserManager : UserManager<StoreUser>
+    public class AppUserManager : UserManager<AppUser>
     {
-        public StoreUserManager(IUserStore<StoreUser> store)
+        public AppUserManager(IUserStore<AppUser> store)
             : base(store)
         {
         }
 
-        public static StoreUserManager Create(IdentityFactoryOptions<StoreUserManager> options, IOwinContext context)
+        public static AppUserManager Create(
+            IdentityFactoryOptions<AppUserManager> options,
+            IOwinContext context)
         {
-            var manager = new StoreUserManager(
-                new UserStore<StoreUser>(context.Get<StoreDbContext>()));
+            var manager = new AppUserManager(
+                new UserStore<AppUser>(context.Get<StoreDbContext>()));
             // Configure validation logic for user names
-            manager.UserValidator = new UserValidator<StoreUser>(manager)
+            manager.UserValidator = new UserValidator<AppUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -29,15 +31,17 @@ namespace ShoppingStore.Domain.IdentityModels.Managers
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<StoreUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<AppUser>(
+                        dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }

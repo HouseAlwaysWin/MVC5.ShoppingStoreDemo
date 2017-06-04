@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace ShoppingStore.Domain.IdentityModels.Managers
 {
-    public class StoreRoleManager : RoleManager<StoreRole>
+    public class AppRoleManager : RoleManager<AppRole>
     {
-        public StoreRoleManager(RoleStore<StoreRole> rolestore) : base(rolestore)
+        public AppRoleManager(RoleStore<AppRole> rolestore) : base(rolestore)
         {
         }
 
-        public static StoreRoleManager Create(
-            IdentityFactoryOptions<StoreRoleManager> options,
+        public static AppRoleManager Create(
+            IdentityFactoryOptions<AppRoleManager> options,
             IOwinContext context)
         {
-            return new StoreRoleManager(
-                new RoleStore<StoreRole>(context.Get<StoreDbContext>()));
+            return new AppRoleManager(
+                new RoleStore<AppRole>(context.Get<StoreDbContext>()));
         }
 
     }

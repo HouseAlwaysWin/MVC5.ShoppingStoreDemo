@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace ShoppingStore.Domain.IdentityModels
 {
 
-    public class StoreRole : IdentityRole
+    public class AppRole : IdentityRole
     {
-        public StoreRole() : base()
+        public AppRole() : base()
         {
         }
 
-        public StoreRole(string name) : base(name)
+        public AppRole(string name) : base(name)
         {
 
         }
