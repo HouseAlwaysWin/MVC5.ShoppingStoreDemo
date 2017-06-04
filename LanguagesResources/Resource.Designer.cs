@@ -61,7 +61,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
         public static string ConfirmedPassword {
             get {
@@ -70,7 +70,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
@@ -79,7 +79,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
             get {
@@ -88,7 +88,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string LastName {
             get {
@@ -97,7 +97,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
             get {
@@ -106,7 +106,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Role Name.
         /// </summary>
         public static string RoleName {
             get {
@@ -115,7 +115,7 @@ namespace LanguagesResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to User Name.
         /// </summary>
         public static string UserName {
             get {

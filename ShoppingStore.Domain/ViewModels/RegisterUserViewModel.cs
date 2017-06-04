@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingStore.Domain.ViewModels
 {
-    public class CreateUserViewModel
+    public class RegisterUserViewModel
     {
         [Required]
         [EmailAddress]
@@ -22,10 +22,12 @@ namespace ShoppingStore.Domain.ViewModels
             ResourceType = typeof(LanguagesResources.Resource))]
         public string UserName { get; set; }
 
+        [Required]
         [Display(Name = "FirstName",
             ResourceType = typeof(LanguagesResources.Resource))]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "LastName",
             ResourceType = typeof(LanguagesResources.Resource))]
         public string LastName { get; set; }
@@ -42,6 +44,7 @@ namespace ShoppingStore.Domain.ViewModels
 
         [Required]
         [DataType(DataType.Password)]
+        [Compare("Password")]
         [Display(Name = "ConfirmedPassword",
             ResourceType = typeof(LanguagesResources.Resource))]
         public string ConfirmedPassword { get; set; }

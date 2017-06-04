@@ -20,6 +20,7 @@ using ShoppingStore.Domain.IdentityModels.Managers;
 using ShoppingStore.Domain.IdentityModels;
 using ShoppingStore.Domain.Infrastructure;
 using ShoppingStore.Domain.ViewModels;
+using System.Linq;
 
 namespace ShoppingStore.Controllers
 {
@@ -59,12 +60,17 @@ namespace ShoppingStore.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 
+        [AllowAnonymous]
+        [Route("GetUsers")]
         public IHttpActionResult GetUsers()
         {
-            return Ok(UserManager.Users);
+            return Ok(
+                UserManager.Users.ToList().Select(
+                    u => this.TheModelFactory.Create(u)));
         }
 
-        [Route("GetUserByName")]
+        [AllowAnonymous]
+        [Route("GetUser/{name}", Name = "GetUserByName")]
         public async Task<IHttpActionResult> GetUserByName(string name)
         {
             var user = await UserManager.FindByNameAsync(name);
@@ -72,18 +78,19 @@ namespace ShoppingStore.Controllers
             {
                 return NotFound();
             }
-            return Ok(user);
+            return Ok(this._modelFactory.Create(user));
         }
 
-        [Route("GetUserById")]
+        [AllowAnonymous]
+        [Route("GetUser/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUserById(string id)
         {
-            var user = UserManager.FindByIdAsync(id);
+            var user = await UserManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(user);
+            return Ok(this._modelFactory.Create(user));
         }
 
         // GET api/Account/UserInfo
@@ -382,10 +389,45 @@ namespace ShoppingStore.Controllers
                 return GetErrorResult(result);
             }
 
+            // Generate Email token code
+            string code = await this.UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var callbackUrl =
+                new Uri(Url.Link("ConfirmEmailRoute",
+                new { userId = user.Id, token = code }));
+
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account",
+                "Please Confirm your account under this links <a href=\""
+                + callbackUrl +
+                "\">Confirm Link</a>" +
+               "<h6>if this email is not yours,please ignore it.</h6>");
+
+
             Uri locationHeader =
                 new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
             return Created(locationHeader, TheModelFactory.Create(user));
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route(Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))
+            {
+                ModelState.AddModelError("", "User Id and Code are required.");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await UserManager.ConfirmEmailAsync(userId, token);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return GetErrorResult(result);
         }
 
         // POST api/Account/RegisterExternal

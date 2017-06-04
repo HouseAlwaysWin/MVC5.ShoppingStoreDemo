@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using ShoppingStore.Domain.IdentityModels._2FServices;
 
 namespace ShoppingStore.Domain.IdentityModels.Managers
 {
@@ -36,6 +37,11 @@ namespace ShoppingStore.Domain.IdentityModels.Managers
                 RequireLowercase = false,
                 RequireUppercase = false,
             };
+
+            // Setting up email service
+            manager.EmailService = new EmailService();
+
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
