@@ -9,7 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingStore.Tests", "Shop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingStore.Domain", "ShoppingStore.Domain\ShoppingStore.Domain.csproj", "{D3F72E3C-14C1-4B14-B7BD-D10AB79EF692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguagesResources", "LanguagesResources\LanguagesResources.csproj", "{B4916451-F9B5-4FF6-9CAB-A3B3D2E3F0C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionKeyExample", "EncryptionKeyExample\EncryptionKeyExample.csproj", "{7F2B6CAB-9EBB-45C6-9A76-97ABC389BEBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingStore.Infrastructure", "ShoppingStore.Infrastructure\ShoppingStore.Infrastructure.csproj", "{2F1D2DD6-1B52-4303-9E93-63B7E768477C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingStore.Services", "ShoppingStore.Services\ShoppingStore.Services.csproj", "{3B983577-3803-4B59-92B3-25FBEAF7F685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingStore.Data", "ShoppingStore.Data\ShoppingStore.Data.csproj", "{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +35,22 @@ Global
 		{D3F72E3C-14C1-4B14-B7BD-D10AB79EF692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3F72E3C-14C1-4B14-B7BD-D10AB79EF692}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3F72E3C-14C1-4B14-B7BD-D10AB79EF692}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4916451-F9B5-4FF6-9CAB-A3B3D2E3F0C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4916451-F9B5-4FF6-9CAB-A3B3D2E3F0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4916451-F9B5-4FF6-9CAB-A3B3D2E3F0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4916451-F9B5-4FF6-9CAB-A3B3D2E3F0C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2B6CAB-9EBB-45C6-9A76-97ABC389BEBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2B6CAB-9EBB-45C6-9A76-97ABC389BEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2B6CAB-9EBB-45C6-9A76-97ABC389BEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2B6CAB-9EBB-45C6-9A76-97ABC389BEBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F1D2DD6-1B52-4303-9E93-63B7E768477C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F1D2DD6-1B52-4303-9E93-63B7E768477C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F1D2DD6-1B52-4303-9E93-63B7E768477C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F1D2DD6-1B52-4303-9E93-63B7E768477C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B983577-3803-4B59-92B3-25FBEAF7F685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B983577-3803-4B59-92B3-25FBEAF7F685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B983577-3803-4B59-92B3-25FBEAF7F685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B983577-3803-4B59-92B3-25FBEAF7F685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

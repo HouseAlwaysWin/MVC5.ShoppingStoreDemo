@@ -13,84 +13,84 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using ShoppingStore.Models;
-using ShoppingStore.Providers;
 using ShoppingStore.Results;
-using ShoppingStore.Domain.IdentityModels.Managers;
-using ShoppingStore.Domain.IdentityModels;
 using ShoppingStore.Domain.Infrastructure;
-using ShoppingStore.Domain.ViewModels;
 using System.Linq;
+using ShoppingStore.Infrastructure.Provider;
+using ShoppingStore.Infractructure.Identity;
+using ShoppingStore.Infrastructure.Identity.IdentityModels;
+using ShoppingStore.Data.ViewModels;
+using ShoppingStore.Data.ViewModels.AccountViewModels;
 
 namespace ShoppingStore.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseIdentityController
     {
 
         private const string LocalLoginProvider = "Local";
-        private ModelFactory _modelFactory;
-        private AppUserManager _userManager;
+        private ResponseResultModelFactory _modelFactory;
+        //private AppUserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(AppUserManager userManager,
+        public AccountController(/*AppUserManager userManager,*/
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
-            UserManager = userManager;
+            //UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public AppUserManager UserManager
-        {
-            get
-            {
-                return _userManager ??
-                    Request.GetOwinContext().GetUserManager<AppUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        //public AppUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ??
+        //            Request.GetOwinContext().GetUserManager<AppUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [Route("GetUsers")]
         public IHttpActionResult GetUsers()
         {
             return Ok(
-                UserManager.Users.ToList().Select(
-                    u => this.TheModelFactory.Create(u)));
+                userManager.Users.ToList().Select(
+                    u => ResponseResult.ShowUser(u)));
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [Route("GetUser/{name}", Name = "GetUserByName")]
         public async Task<IHttpActionResult> GetUserByName(string name)
         {
-            var user = await UserManager.FindByNameAsync(name);
+            var user = await userManager.FindByNameAsync(name);
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(this._modelFactory.Create(user));
+            return Ok(ResponseResult.ShowUser(user));
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [Route("GetUser/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUserById(string id)
         {
-            var user = await UserManager.FindByIdAsync(id);
+            var user = await userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(this._modelFactory.Create(user));
+            return Ok(ResponseResult.ShowUser(user));
         }
 
         // GET api/Account/UserInfo
@@ -119,9 +119,11 @@ namespace ShoppingStore.Controllers
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        public async Task<ManageInfoViewModel> GetManageInfo(
+            string returnUrl, bool generateState = false)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            IdentityUser user =
+                await userManager.FindByIdAsync(User.Identity.GetUserId());
 
             if (user == null)
             {
@@ -159,15 +161,17 @@ namespace ShoppingStore.Controllers
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        public async Task<IHttpActionResult> ChangePassword(
+            ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-                model.NewPassword);
+            IdentityResult result =
+                await userManager.ChangePasswordAsync(
+                    User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -179,14 +183,17 @@ namespace ShoppingStore.Controllers
 
         // POST api/Account/SetPassword
         [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        public async Task<IHttpActionResult> SetPassword(
+            SetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            IdentityResult result =
+                await userManager.AddPasswordAsync(
+                    User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -198,7 +205,8 @@ namespace ShoppingStore.Controllers
 
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]
-        public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
+        public async Task<IHttpActionResult> AddExternalLogin(
+            AddExternalLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -223,7 +231,7 @@ namespace ShoppingStore.Controllers
                 return BadRequest("The external login is already associated with an account.");
             }
 
-            IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
+            IdentityResult result = await userManager.AddLoginAsync(User.Identity.GetUserId(),
                 new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
 
             if (!result.Succeeded)
@@ -236,7 +244,8 @@ namespace ShoppingStore.Controllers
 
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
-        public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
+        public async Task<IHttpActionResult> RemoveLogin(
+            RemoveLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -247,11 +256,11 @@ namespace ShoppingStore.Controllers
 
             if (model.LoginProvider == LocalLoginProvider)
             {
-                result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId());
+                result = await userManager.RemovePasswordAsync(User.Identity.GetUserId());
             }
             else
             {
-                result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(),
+                result = await userManager.RemoveLoginAsync(User.Identity.GetUserId(),
                     new UserLoginInfo(model.LoginProvider, model.ProviderKey));
             }
 
@@ -268,7 +277,8 @@ namespace ShoppingStore.Controllers
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        public async Task<IHttpActionResult> GetExternalLogin(
+            string provider, string error = null)
         {
             if (error != null)
             {
@@ -293,7 +303,7 @@ namespace ShoppingStore.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            AppUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            AppUser user = await userManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -302,9 +312,9 @@ namespace ShoppingStore.Controllers
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                    OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(userManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
@@ -323,7 +333,8 @@ namespace ShoppingStore.Controllers
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
-        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
+        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(
+            string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
@@ -382,7 +393,7 @@ namespace ShoppingStore.Controllers
             };
 
             IdentityResult result =
-                await UserManager.CreateAsync(user, model.Password);
+                await userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
@@ -390,13 +401,14 @@ namespace ShoppingStore.Controllers
             }
 
             // Generate Email token code
-            string code = await this.UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            string code =
+                await this.userManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             var callbackUrl =
                 new Uri(Url.Link("ConfirmEmailRoute",
                 new { userId = user.Id, token = code }));
 
-            await UserManager.SendEmailAsync(user.Id, "Confirm your account",
+            await userManager.SendEmailAsync(user.Id, "Confirm your account",
                 "Please Confirm your account under this links <a href=\""
                 + callbackUrl +
                 "\">Confirm Link</a>" +
@@ -406,7 +418,7 @@ namespace ShoppingStore.Controllers
             Uri locationHeader =
                 new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
-            return Created(locationHeader, TheModelFactory.Create(user));
+            return Created(locationHeader, ResponseResult.ShowUser(user));
         }
 
 
@@ -421,7 +433,7 @@ namespace ShoppingStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ConfirmEmailAsync(userId, token);
+            IdentityResult result = await userManager.ConfirmEmailAsync(userId, token);
 
             if (result.Succeeded)
             {
@@ -434,7 +446,8 @@ namespace ShoppingStore.Controllers
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        public async Task<IHttpActionResult> RegisterExternal(
+            RegisterExternalViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -449,13 +462,13 @@ namespace ShoppingStore.Controllers
 
             var user = new AppUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user);
+            IdentityResult result = await userManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            result = await userManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -463,12 +476,146 @@ namespace ShoppingStore.Controllers
             return Ok();
         }
 
+
+
+        [Authorize(Roles = "Admin")]
+        [Route("DeleteUser/{id:guid}")]
+        public async Task<IHttpActionResult> DeleteUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            IdentityResult result = await userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return GetErrorResult(result);
+        }
+
+
+        [HttpPut]
+        [Route("AddRoles")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> AssignRolesToUser(
+            RolesViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var currentRoles = await userManager.GetRolesAsync(user.Id);
+
+            var rolesNotExists = model.RoleNames.Except(
+                roleManager.Roles.Select(r => r.Name)).ToArray();
+
+            if (rolesNotExists.Count() > 0)
+            {
+                ModelState.AddModelError("",
+                    string.Format("Roles {0} doesn't exist in the system",
+                    string.Join(",", rolesNotExists)));
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult removeResult =
+                await userManager.RemoveFromRolesAsync(
+                    user.Id, currentRoles.ToArray());
+
+            if (!removeResult.Succeeded)
+            {
+                ModelState.AddModelError("",
+                    "Failed to remove users");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult addResult =
+                await userManager.AddToRolesAsync(
+                    user.Id, model.RoleNames.ToArray());
+
+            if (!addResult.Succeeded)
+            {
+                ModelState.AddModelError("",
+                    "Failed to add roles");
+                return BadRequest(ModelState);
+            }
+
+            return Ok(ResponseResult.ShowUser(user));
+
+        }
+
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [Route("AddClaim")]
+        public async Task<IHttpActionResult> AddClaimsToUser(
+            ClaimViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await userManager.FindByIdAsync(model.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var claimModel in model.Claims)
+            {
+                if (user.Claims.Any(c => c.ClaimType == claimModel.ClaimType))
+                {
+                    await userManager.RemoveClaimAsync(
+                        model.UserId, new Claim(claimModel.ClaimType, claimModel.ClaimValue));
+                }
+
+                await userManager.AddClaimAsync(
+                    model.UserId, new Claim(claimModel.ClaimType, claimModel.ClaimValue));
+
+            }
+
+            return Ok(ResponseResult.ShowUser(user));
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [Route("RemoveClaim")]
+        public async Task<IHttpActionResult> RemoveClaim(ClaimViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var claim in model.Claims)
+            {
+                if (user.Claims.Any(x => x.ClaimType == claim.ClaimType))
+                {
+                    await userManager.RemoveClaimAsync(
+                        model.UserId, new Claim(claim.ClaimType, claim.ClaimValue));
+                }
+            }
+
+            return Ok(ResponseResult.ShowUser(user));
+        }
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && userManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                userManager.Dispose();
+                //userManager = null;
             }
 
             base.Dispose(disposing);
@@ -477,51 +624,7 @@ namespace ShoppingStore.Controllers
         #region Helpers
 
 
-        private IAuthenticationManager Authentication
-        {
-            get { return Request.GetOwinContext().Authentication; }
-        }
 
-        private ModelFactory TheModelFactory
-        {
-            get
-            {
-                if (_modelFactory == null)
-                {
-                    _modelFactory = new ModelFactory(this.Request, this.UserManager);
-                }
-                return _modelFactory;
-            }
-        }
-
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
 
         private class ExternalLoginData
         {

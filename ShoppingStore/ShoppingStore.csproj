@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.3\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.3\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -85,12 +93,16 @@
       <HintPath>..\packages\Microsoft.Owin.Cors.3.1.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.3.1.0\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -104,6 +116,12 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -113,6 +131,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -164,6 +186,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Thinktecture.IdentityModel.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.Core.1.4.0\lib\net45\Thinktecture.IdentityModel.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -207,15 +233,11 @@
     <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
       <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -246,20 +268,17 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AudienceController.cs" />
+    <Compile Include="Controllers\BaseIdentityController.cs" />
+    <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\ExternalLoginViewModel.cs" />
-    <Compile Include="Models\ManageInfoViewModel.cs" />
-    <Compile Include="Models\UserInfoViewModel.cs" />
-    <Compile Include="Models\UserLoginInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -331,9 +350,21 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingStore.Data\ShoppingStore.Data.csproj">
+      <Project>{6E1B9B6D-892F-48E2-9C66-5BAC11B3834D}</Project>
+      <Name>ShoppingStore.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShoppingStore.Domain\ShoppingStore.Domain.csproj">
       <Project>{D3F72E3C-14C1-4B14-B7BD-D10AB79EF692}</Project>
       <Name>ShoppingStore.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingStore.Infrastructure\ShoppingStore.Infrastructure.csproj">
+      <Project>{2f1d2dd6-1b52-4303-9e93-63b7e768477c}</Project>
+      <Name>ShoppingStore.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingStore.Services\ShoppingStore.Services.csproj">
+      <Project>{3b983577-3803-4b59-92b3-25fbeaf7f685}</Project>
+      <Name>ShoppingStore.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
