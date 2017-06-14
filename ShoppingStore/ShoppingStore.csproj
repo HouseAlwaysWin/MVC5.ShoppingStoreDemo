@@ -267,13 +267,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AudienceController.cs" />
-    <Compile Include="Controllers\BaseIdentityController.cs" />
-    <Compile Include="Controllers\ClaimsController.cs" />
+    <Compile Include="Controllers\Api\AccountController.cs" />
+    <Compile Include="Controllers\Api\AudienceController.cs" />
+    <Compile Include="Controllers\Api\BaseIdentityController.cs" />
+    <Compile Include="Controllers\Api\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\Api\RolesController.cs" />
+    <Compile Include="Controllers\Api\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -337,6 +337,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_RightNavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -361,10 +362,6 @@
     <ProjectReference Include="..\ShoppingStore.Infrastructure\ShoppingStore.Infrastructure.csproj">
       <Project>{2f1d2dd6-1b52-4303-9e93-63b7e768477c}</Project>
       <Name>ShoppingStore.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ShoppingStore.Services\ShoppingStore.Services.csproj">
-      <Project>{3b983577-3803-4b59-92b3-25fbeaf7f685}</Project>
-      <Name>ShoppingStore.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

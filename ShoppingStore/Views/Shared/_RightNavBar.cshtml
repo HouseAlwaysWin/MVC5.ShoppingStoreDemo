@@ -1,0 +1,128 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    @if (Request.IsAuthenticated)
+    {
+        <li class="notifications">
+            <a href="#">
+                <i class="glyphicon glyphicon-globe"></i>
+                <span class="badge js-notifications-count hide"></span>
+            </a>
+        </li>
+
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Manage", "Index", "AccountManager")</li>
+            </ul>
+        </li>
+
+        <li class="logout">
+            <input type="submit" value="Logout" id="logoutButton" />
+        </li>
+    }
+    else
+    {
+        <li class="register">
+            @Html.ActionLink("Register", "Register", "Account")
+        </li>
+
+        <li class="login">
+            <a href="#" id="loginInput" data-toggle="modal" data-target="#loginModal">Login</a>
+        </li>
+
+
+        <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Login</h5>
+
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>UserName</label>
+                                <input id="username" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input id="password" class="form-control" type="password" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Language
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("English", "SetCulture", "Culture", new { culture = "en-us" }, null)</li>
+            <li>@Html.ActionLink("Chinese", "SetCulture", "Culture", new { culture = "zh-tw" }, null)</li>
+        </ul>
+    </li>
+</ul>
+
+@section Scripts{
+    <script>
+        $('#loginModal').prependTo('body').on('shown.bs.modal', function (e) {
+            //$(e.relatedTarget.attributes['data-target'].value).appendTo(‌​'body');
+            //$('#loginInput').focus();
+        })
+
+        $(function () {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var loginModel = {
+                "grant_type": "password",
+                "username": username,
+                "password": password
+            };
+
+            $("#loginButton").on("submit", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Token",
+                    type: "POST",
+                    data: loginModal()
+                })
+                .done(function (data) {
+                    console.log("Login success");
+                    $.ajax({
+                        headers: "bearer " + data.access_token
+                    });
+                })
+                .fail(function () {
+                    $('#loginModal').modal({
+                        backdrop: 'static'
+                    });
+                    console.log("Login Failed");
+                });
+
+                //$('#logoutButton').on("submit", function () {
+                //    e.preventDefault();
+
+                //    $.ajax({
+                //        url: "/api/Account/Logout",
+                //        type: "POST"
+                //    }).done(function () {
+                //        alert("Logout success");
+                //    }).fail(function () {
+                //        alert("lougout failed");
+                //    });
+
+                //});
+            });
+        });
+    </script>
+}

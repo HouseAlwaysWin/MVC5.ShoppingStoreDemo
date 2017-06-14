@@ -124,10 +124,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Entities\Audience.cs" />
-    <Compile Include="Models\AudienceModel.cs" />
+    <Compile Include="IdentityModels\AppRole.cs" />
+    <Compile Include="IdentityModels\AppUser.cs" />
+    <Compile Include="Models\Audience.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueObject\ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

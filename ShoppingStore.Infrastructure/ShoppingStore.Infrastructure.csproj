@@ -132,30 +132,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\EntityBase.cs" />
-    <Compile Include="Identity\IdentityManagers\AppRoleManager.cs" />
-    <Compile Include="Identity\IdentityManagers\AppSignInManager.cs" />
-    <Compile Include="Identity\IdentityManagers\AppUserManager.cs" />
-    <Compile Include="Identity\StoreDbContext.cs" />
-    <Compile Include="Migrations\201706130845578_InitialIdentityModel.cs" />
-    <Compile Include="Migrations\201706130845578_InitialIdentityModel.Designer.cs">
-      <DependentUpon>201706130845578_InitialIdentityModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TFServices\EmailService.cs" />
     <Compile Include="TFServices\SmsService.cs" />
-    <Compile Include="Identity\IdentityModels\AppRole.cs" />
-    <Compile Include="Identity\IdentityModels\AppUser.cs" />
-    <Compile Include="Identity\Provider\ApplicationOAuthProvider.cs" />
-    <Compile Include="Identity\Provider\ClaimStatement\ExtendedClaimsProvider.cs" />
-    <Compile Include="Identity\Provider\ClaimStatement\RolesFromClaims.cs" />
-    <Compile Include="Identity\Provider\CustomJwtFormat.cs" />
-    <Compile Include="Identity\Provider\UseClaimsAuthManager\AuthenticationManager.cs" />
-    <Compile Include="Identity\Provider\UseClaimsAuthManager\Authhandler.cs" />
-    <Compile Include="Identity\Provider\UseClaimsAuthManager\AuthorizationManager.cs" />
-    <Compile Include="Identity\Provider\UseClaimsFilters\ClaimsAuthorizationAttribute.cs" />
-    <Compile Include="Identity\ResponseResultModelFactory.cs" />
-    <Compile Include="Identity\Startup.Auth.cs" />
     <Compile Include="LanguageResource\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -167,7 +145,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Domain\ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -181,9 +158,6 @@
     <EmbeddedResource Include="LanguageResource\TranditionalChinese.zh-TW.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TranditionalChinese.zh-TW.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706130845578_InitialIdentityModel.resx">
-      <DependentUpon>201706130845578_InitialIdentityModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
