@@ -48,8 +48,8 @@ namespace ShoppingStore.Data.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(nullable: false, maxLength: 100),
-                        LastName = c.String(nullable: false, maxLength: 100),
+                        FirstName = c.String(maxLength: 100),
+                        LastName = c.String(maxLength: 100),
                         Level = c.Byte(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),

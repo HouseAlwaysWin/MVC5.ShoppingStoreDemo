@@ -117,10 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Target" xml:space="preserve">
-    <value>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</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>密碼再確認</value>
   </data>
-  <data name="DefaultSchema" xml:space="preserve">
-    <value>dbo</value>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>目前密碼</value>
+  </data>
+  <data name="  &lt;add namespace=&quot;ShoppingStore.Infrastructure.LanguagesResources&quot;/&gt;" xml:space="preserve">
+    <value>  &lt;add namespace="ShoppingStore.Infrastructure.LanguagesResources"/&gt;</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>首頁</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新密碼</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>密碼至少要 {0} 字元.</value>
+    <comment>Error message for passwords that are too short</comment>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>角色名稱</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>使用者名稱</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>英文</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>電子郵件</value>
   </data>
 </root>

@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using ShoppingStore.Data.ViewModels;
 using ShoppingStore.Data.ViewModels.AccountViewModels;
-using ShoppingStore.Infrastructure.IdentityModels;
+using ShoppingStore.Domain.IdentityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

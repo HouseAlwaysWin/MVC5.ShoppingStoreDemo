@@ -9,10 +9,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using ShoppingStore.Infrastructure.Identity.IdentityModels;
 using ShoppingStore.Data.Identity.IdentityManagers;
+using ShoppingStore.Domain.IdentityModels;
 
-namespace ShoppingStore.Data.Identity.Providers
+namespace ShoppingStore.Data.Identity
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
@@ -63,16 +63,16 @@ namespace ShoppingStore.Data.Identity.Providers
             //oAuthIdentity.AddClaims(
             //    RolesFromClaims.CreateRoleBasedOnClaims(oAuthIdentity));
 
-            //ClaimsIdentity cookiesIdentity =
-            //    await user.GenerateUserIdentityAsync(userManager,
-            //    CookieAuthenticationDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity =
+                await user.GenerateUserIdentityAsync(userManager,
+                CookieAuthenticationDefaults.AuthenticationType);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
             AuthenticationTicket ticket =
                 new AuthenticationTicket(oAuthIdentity, properties);
 
             context.Validated(ticket);
-            //context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

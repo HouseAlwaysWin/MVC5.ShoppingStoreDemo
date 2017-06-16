@@ -117,31 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>密碼再確認</value>
+    <value>Confirm Password</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
-    <value>目前密碼</value>
+    <value>Current Password</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>電子郵件</value>
-  </data>
+  <data name="  &lt;add namespace=&quot;ShoppingStore.Infrastructure.LanguagesResources&quot;/&gt;" xml:space="preserve">
+    <value>  &lt;add namespace="ShoppingStore.Infrastructure.LanguagesResources"/&gt;</value>
+  <comment>  &lt;add namespace="ShoppingStore.Infrastructure.LanguagesResources"/&gt;</comment></data>
   <data name="FirstName" xml:space="preserve">
-    <value>名</value>
+    <value>First Name</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>姓</value>
+    <value>Last Name</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>新密碼</value>
+    <value>New Password</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>密碼</value>
+    <value>Password</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Passwords must be at least {0} characters.</value>
+    <comment>Error message for passwords that are too short</comment>
   </data>
   <data name="RoleName" xml:space="preserve">
-    <value>角色名稱</value>
+    <value>Role Name</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>使用者名稱</value>
+    <value>User Name</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
 </root>

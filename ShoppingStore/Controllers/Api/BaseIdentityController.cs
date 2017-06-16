@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using ShoppingStore.Data.Identity;
 using ShoppingStore.Data.Identity.IdentityManagers;
-using ShoppingStore.Domain.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

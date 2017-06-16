@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using ShoppingStore.Infrastructure.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ShoppingStore
@@ -7,7 +8,9 @@ namespace ShoppingStore
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CultureAttribute());
         }
     }
 }

@@ -14,12 +14,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ShoppingStore.Results;
-using ShoppingStore.Domain.Infrastructure;
 using System.Linq;
-using ShoppingStore.Infractructure.Identity;
-using ShoppingStore.Infrastructure.Identity.IdentityModels;
 using ShoppingStore.Data.ViewModels.AccountViewModels;
 using ShoppingStore.Data.Identity.Providers;
+using ShoppingStore.Data.Identity;
+using ShoppingStore.Domain.IdentityModels;
 
 namespace ShoppingStore.Controllers.Api
 {
@@ -109,7 +108,9 @@ namespace ShoppingStore.Controllers.Api
         }
 
         // POST api/Account/Logout
+
         [Route("Logout")]
+        [AllowAnonymous]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -374,7 +375,8 @@ namespace ShoppingStore.Controllers.Api
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterUserViewModel model)
+        public async Task<IHttpActionResult> Register(
+            RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -385,8 +387,6 @@ namespace ShoppingStore.Controllers.Api
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
                 Level = 3,
                 JoinDate = DateTime.Now.Date
             };
@@ -412,7 +412,6 @@ namespace ShoppingStore.Controllers.Api
                 + callbackUrl +
                 "\">Confirm Link</a>" +
                "<h6>if this email is not yours,please ignore it.</h6>");
-
 
             Uri locationHeader =
                 new Uri(Url.Link("GetUserById", new { id = user.Id }));

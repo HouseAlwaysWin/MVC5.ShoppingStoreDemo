@@ -4,7 +4,7 @@ using System;
 using System.IdentityModel.Tokens;
 using Thinktecture.IdentityModel.Tokens;
 
-namespace ShoppingStore.Data.Identity.Providers
+namespace ShoppingStore.Data.Identity
 {
     public class CustomJwtFormat : ISecureDataFormat<AuthenticationTicket>
     {

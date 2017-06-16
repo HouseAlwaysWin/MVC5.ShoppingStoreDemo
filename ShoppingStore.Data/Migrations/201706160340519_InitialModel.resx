@@ -117,31 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm Password</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Current Password</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New Password</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="RoleName" xml:space="preserve">
-    <value>Role Name</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>User Name</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

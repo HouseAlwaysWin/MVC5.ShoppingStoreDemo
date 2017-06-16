@@ -13,7 +13,7 @@ namespace ShoppingStore.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706140550569_InitialModel"; }
+            get { return "201706160340519_InitialModel"; }
         }
         
         string IMigrationMetadata.Source

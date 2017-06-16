@@ -14,8 +14,8 @@ using ShoppingStore.Data.Identity.IdentityManagers;
 using ShoppingStore.Data.Identity.Providers;
 using ShoppingStore.Data;
 
-[assembly: OwinStartup(typeof(ShoppingStore.Infractructure.Identity.Startup))]
-namespace ShoppingStore.Infractructure.Identity
+[assembly: OwinStartup(typeof(ShoppingStore.Data.Identity.Startup))]
+namespace ShoppingStore.Data.Identity
 {
     public class Startup
     {
@@ -68,7 +68,8 @@ namespace ShoppingStore.Infractructure.Identity
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
 
                 AccessTokenFormat = new CustomJwtFormat("http://localhost:6861"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(1000),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

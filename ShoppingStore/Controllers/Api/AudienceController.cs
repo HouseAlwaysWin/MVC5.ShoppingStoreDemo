@@ -1,7 +1,5 @@
 ﻿using ShoppingStore.Data.ViewModels;
 using ShoppingStore.Domain.Entities;
-using ShoppingStore.Domain.Infrastructure;
-using ShoppingStore.Infractructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

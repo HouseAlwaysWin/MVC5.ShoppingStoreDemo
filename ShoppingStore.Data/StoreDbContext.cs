@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ShoppingStore.Domain.IdentityModels;
 using ShoppingStore.Domain.Models;
-using ShoppingStore.Infrastructure.Identity.IdentityModels;
 using System.Data.Entity;
 
 namespace ShoppingStore.Data

@@ -5,15 +5,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingStore.Infrastructure.Identity.IdentityModels
+namespace ShoppingStore.Domain.IdentityModels
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class AppUser : IdentityUser
     {
-        [Required]
+        //[Required]
         [MaxLength(100)]
         public string FirstName { get; set; }
-        [Required]
+        //[Required]
         [MaxLength(100)]
         public string LastName { get; set; }
         [Required]

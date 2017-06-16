@@ -1,4 +1,4 @@
-﻿using ShoppingStore.Infrastructure.Identity.IdentityModels;
+﻿using ShoppingStore.Domain.IdentityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

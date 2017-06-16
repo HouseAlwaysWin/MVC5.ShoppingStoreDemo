@@ -156,7 +156,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Identity\IdentityManagers\AppRoleManager.cs" />
     <Compile Include="Identity\IdentityManagers\AppSignInManager.cs" />
     <Compile Include="Identity\IdentityManagers\AppUserManager.cs" />
@@ -170,9 +169,9 @@
     <Compile Include="Identity\Provider\UseClaimsFilters\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Identity\ResponseResultModelFactory.cs" />
     <Compile Include="Identity\Startup.Auth.cs" />
-    <Compile Include="Migrations\201706140550569_InitialModel.cs" />
-    <Compile Include="Migrations\201706140550569_InitialModel.Designer.cs">
-      <DependentUpon>201706140550569_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201706160340519_InitialModel.cs" />
+    <Compile Include="Migrations\201706160340519_InitialModel.Designer.cs">
+      <DependentUpon>201706160340519_InitialModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StoreDbContext.cs" />
@@ -212,8 +211,8 @@
     <Folder Include="DTO\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706140550569_InitialModel.resx">
-      <DependentUpon>201706140550569_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706160340519_InitialModel.resx">
+      <DependentUpon>201706160340519_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingStore.Infrastructure.IdentityModels
+namespace ShoppingStore.Domain.IdentityModels
 {
 
     public class AppRole : IdentityRole

@@ -123,7 +123,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="IdentityModels\AppRole.cs" />
     <Compile Include="IdentityModels\AppUser.cs" />
     <Compile Include="Models\Audience.cs" />

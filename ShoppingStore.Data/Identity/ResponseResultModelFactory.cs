@@ -1,6 +1,5 @@
 ﻿using ShoppingStore.Data.Identity.IdentityManagers;
-using ShoppingStore.Infrastructure.Identity.IdentityModels;
-using ShoppingStore.Infrastructure.IdentityModels;
+using ShoppingStore.Domain.IdentityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http.Routing;
 
-namespace ShoppingStore.Domain.Infrastructure
+namespace ShoppingStore.Data.Identity
 {
     public class ResponseResultModelFactory
     {
