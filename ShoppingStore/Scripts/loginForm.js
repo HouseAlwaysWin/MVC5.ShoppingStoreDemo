@@ -1,5 +1,16 @@
 ﻿$(function () {
 
+    overrideErrorMS();
+    loginFormFunc();
+    registerFormFunc();
+
+});
+
+
+var loginFormFunc = function () {
+
+    var form = $('#loginForm');
+
     $('#logoutButton').on('click', function (e) {
         $.ajax({
             url: "api/account/logout",
@@ -11,18 +22,13 @@
         });
     });
 
-    $("#loginForm").on("submit", function (e) {
+    form.on("submit", function (e) {
         e.preventDefault();
-        var username = $('#username').val();
-
-        var password = $('#password').val();
-
-
 
         var loginModel = {
             "grant_type": "password",
-            username: username,
-            password: password
+            username: $('#login-username').val(),
+            password: $('#login-password').val()
         };
 
         $.ajax({
@@ -41,7 +47,6 @@
             });
             console.log(data.access_token);
             console.log("Login success");
-
         })
         .fail(function (jqXHR, textStatus, data) {
             var error = $.parseJSON(jqXHR.responseText);
@@ -50,39 +55,42 @@
         });
     });
 
+    form.validate({
+        rules: {
+            username: {
+                required: true,
+                minlength: 5,
+            },
+            password: {
+                required: true,
+                minlength: 5
+            }
+        }
+    });
+}
 
 
 
+var registerFormFunc = function () {
 
-
-    $('#registerForm').on("submit", function (e) {
+    var form = $('#registerForm');
+    form.on("submit", function (e) {
         e.preventDefault();
 
+        // Refresh modal after submit
         $('#registerModal').on('hidden.bs.modal', '.modal-body', function () {
             $(this).removeData('bs.modal');
         });
-        var username = $('#register-username').val();
-        var email = $('#register-email').val();
-        var password = $('#register-password').val();
-        var passwordConfirm = $('#register-passwordConfirm').val();
 
+        // Binding text content
         var registerModel = {
-            "UserName": username,
-            "Email": email,
-            "Password": password,
-            "ConfirmPassword": passwordConfirm
+            "UserName": $('#register-username').val(),
+            "Email": $('#register-email').val(),
+            "Password": $('#register-password').val(),
+            "ConfirmPassword": $('#register-passwordConfirm').val()
         };
 
-
-
-
         var summaryValid = $('#summary-valid');
-        var usernameValid = $('#register-username-valid');
-        var emailValid = $('#register-email-valid');
-        var passwordValid = $('#register-password-valid');
-        var passwordConfirmValid = $('#register-passwordconfirm-valid');
-
-
 
         $.ajax({
             url: "api/account/register",
@@ -90,20 +98,12 @@
             contentType: "application/json",
             data: JSON.stringify(registerModel)
         }).done(function (data) {
-            alert("register Successful");
+            $('#registerModal').modal('toggle');
+            location.reload();
 
         }).fail(function (jqXHR, textStatus, data) {
-
             var error = $.parseJSON(jqXHR.responseText);
-            var emailError = error.modelState["model.Email"];
-            var usernameError = error.modelState["model.UserName"];
-            var passwordError = error.modelState["model.Password"];
-            var passwordConfirmError = error.modelState["model.ConfirmPassword"];
-
-
             var summaryError = error.modelState;
-
-
             if (summaryError) {
                 $.each(summaryError, function (index, value) {
                     summaryValid.text(value).css("color", "red");
@@ -111,44 +111,27 @@
             } else {
                 summaryValid.text("");
             }
-
-
-            if (usernameError) {
-                $.each(usernameError, function (index, value) {
-                    usernameValid.text(value).css("color", "red");
-
-                });
-            } else {
-                usernameValid.text("");
-            }
-
-            if (emailError) {
-                $.each(emailError, function (index, value) {
-                    emailValid.text(value).css("color", "red")
-                });
-            }
-            else {
-                emailValid.text("");
-            }
-
-            if (passwordError) {
-                $.each(passwordError, function (index, value) {
-                    passwordValid.text(value).css("color", "red");
-                });
-            } else {
-                passwordValid.text("");
-            }
-
-
-            if (passwordConfirmError) {
-                $.each(passwordConfirmError, function (index, value) {
-                    passwordConfirmValid.text(value).css("color", "red");
-                });
-            } else {
-                passwordConfirmValid.text("");
-            }
-
             console.log("Register Failed");
         })
     });
-});
+
+    form.validate({
+        rules: {
+            username: {
+                required: true,
+                minlength: 5
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+            password_confirm: {
+                equalTo: "#register-password"
+            }
+        },
+    });
+}

@@ -13,12 +13,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using ShoppingStore.Results;
 using System.Linq;
 using ShoppingStore.Data.ViewModels.AccountViewModels;
 using ShoppingStore.Data.Identity.Providers;
 using ShoppingStore.Data.Identity;
 using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Data.Results;
 
 namespace ShoppingStore.Controllers.Api
 {
@@ -373,6 +373,7 @@ namespace ShoppingStore.Controllers.Api
         }
 
         // POST api/Account/Register
+
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(
@@ -399,9 +400,20 @@ namespace ShoppingStore.Controllers.Api
                 return GetErrorResult(result);
             }
 
-            // Generate Email token code
+            return await SendVerifiedEmail(user.Email);
+        }
+
+
+        public async Task<IHttpActionResult> SendVerifiedEmail(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             string code =
-                await this.userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             var callbackUrl =
                 new Uri(Url.Link("ConfirmEmailRoute",
@@ -412,7 +424,6 @@ namespace ShoppingStore.Controllers.Api
                 + callbackUrl +
                 "\">Confirm Link</a>" +
                "<h6>if this email is not yours,please ignore it.</h6>");
-
             Uri locationHeader =
                 new Uri(Url.Link("GetUserById", new { id = user.Id }));
 

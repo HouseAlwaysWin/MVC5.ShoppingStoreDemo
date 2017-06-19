@@ -11,6 +11,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ShoppingStore.Data.Identity.IdentityManagers;
 using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Infrastructure.LanguagesResources;
 
 namespace ShoppingStore.Data.Identity
 {
@@ -41,13 +42,14 @@ namespace ShoppingStore.Data.Identity
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", Resource.LoginFailed);
+
                 return;
             }
 
             if (!user.EmailConfirmed)
             {
-                context.SetError("invalid_grant", "The user did not confirm email");
+                context.SetError("invalid_grant", Resource.EmailConfirmFailed);
                 return;
             }
 

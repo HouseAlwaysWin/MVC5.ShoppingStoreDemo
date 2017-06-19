@@ -11,10 +11,12 @@ using System.Security.Permissions;
 
 namespace ShoppingStore.Controllers.Api
 {
-    [Authorize(Roles = "IncidentResolvers")]
+
     [RoutePrefix("api/value")]
     public class ValuesController : ApiController
     {
+
+
         // GET api/values
         //[ClaimsAuthorization(ClaimType = "FTE", ClaimValue = "1")]
         [ClaimsPrincipalPermission(SecurityAction.Demand,

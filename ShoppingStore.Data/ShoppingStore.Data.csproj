@@ -168,6 +168,7 @@
     <Compile Include="Identity\Provider\UseClaimsAuthManager\AuthorizationManager.cs" />
     <Compile Include="Identity\Provider\UseClaimsFilters\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Identity\ResponseResultModelFactory.cs" />
+    <Compile Include="Identity\Results\ChallengeResult.cs" />
     <Compile Include="Identity\Startup.Auth.cs" />
     <Compile Include="Migrations\201706160340519_InitialModel.cs" />
     <Compile Include="Migrations\201706160340519_InitialModel.Designer.cs">

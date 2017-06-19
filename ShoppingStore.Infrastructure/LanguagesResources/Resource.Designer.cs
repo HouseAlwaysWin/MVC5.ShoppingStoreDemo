@@ -61,6 +61,15 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a value with a valid extension..
+        /// </summary>
+        public static string AcceptError {
+            get {
+                return ResourceManager.GetString("AcceptError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -97,6 +106,15 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid credit card number..
+        /// </summary>
+        public static string CreditCartError {
+            get {
+                return ResourceManager.GetString("CreditCartError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Password.
         /// </summary>
         public static string CurrentPassword {
@@ -106,11 +124,56 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid date..
+        /// </summary>
+        public static string DateError {
+            get {
+                return ResourceManager.GetString("DateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid date (ISO)..
+        /// </summary>
+        public static string DateISOError {
+            get {
+                return ResourceManager.GetString("DateISOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter only digits..
+        /// </summary>
+        public static string DigitsOnlyError {
+            get {
+                return ResourceManager.GetString("DigitsOnlyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user did not confirm email.
+        /// </summary>
+        public static string EmailConfirmFailed {
+            get {
+                return ResourceManager.GetString("EmailConfirmFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Email Format.
+        /// </summary>
+        public static string EmailError {
+            get {
+                return ResourceManager.GetString("EmailError", resourceCulture);
             }
         }
         
@@ -169,11 +232,56 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user name or password is incorrect..
+        /// </summary>
+        public static string LoginFailed {
+            get {
+                return ResourceManager.GetString("LoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a value less than or equal to {0}..
+        /// </summary>
+        public static string MaxError {
+            get {
+                return ResourceManager.GetString("MaxError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter no more than {0} characters..
+        /// </summary>
+        public static string MaxLength {
+            get {
+                return ResourceManager.GetString("MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a value greater than or equal to {0}..
+        /// </summary>
+        public static string MinError {
+            get {
+                return ResourceManager.GetString("MinError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter at least {0} characters..
+        /// </summary>
+        public static string MinLengthError {
+            get {
+                return ResourceManager.GetString("MinLengthError", resourceCulture);
             }
         }
         
@@ -187,11 +295,29 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid number..
+        /// </summary>
+        public static string NumberError {
+            get {
+                return ResourceManager.GetString("NumberError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the same value again..
+        /// </summary>
+        public static string PasswordConfirmError {
+            get {
+                return ResourceManager.GetString("PasswordConfirmError", resourceCulture);
             }
         }
         
@@ -205,6 +331,24 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a value between {0} and {1}..
+        /// </summary>
+        public static string RangeError {
+            get {
+                return ResourceManager.GetString("RangeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a value between {0} and {1} characters long..
+        /// </summary>
+        public static string RangeLengthError {
+            get {
+                return ResourceManager.GetString("RangeLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string Register {
@@ -214,11 +358,38 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please fix this field..
+        /// </summary>
+        public static string RemoteError {
+            get {
+                return ResourceManager.GetString("RemoteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required..
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role Name.
         /// </summary>
         public static string RoleName {
             get {
                 return ResourceManager.GetString("RoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid URL..
+        /// </summary>
+        public static string UrlError {
+            get {
+                return ResourceManager.GetString("UrlError", resourceCulture);
             }
         }
         

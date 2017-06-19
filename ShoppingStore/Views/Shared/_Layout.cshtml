@@ -45,19 +45,21 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
+                    <h5 class="modal-title">@Resource.Login</h5>
                     <div id="login-error-message"></div>
                 </div>
 
                 <form id="loginForm">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>@Resource.UserName</label>
-                            <input id="username" class="form-control" type="text" />
+                            <label for="username">@Resource.UserName</label>
+                            <input id="login-username" name="username" class="form-control" type="text" />
+                            <label id="login-username-error" class="error" for="login-username"></label>
                         </div>
                         <div class="form-group">
-                            <label>@Resource.Email</label>
-                            <input id="password" class="form-control" type="password" />
+                            <label for="password">@Resource.Password</label>
+                            <input id="login-password" name="password" class="form-control" type="password" />
+                            <label id="login-password-error" class="error" for="login-password"></label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -74,32 +76,35 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Register</h5>
-                     <div><span id="summary-valid"></span></div>
+                    <h5 class="modal-title">@Resource.Register</h5>
+                    <div><span id="summary-valid"></span></div>
                 </div>
 
                 <form id="registerForm">
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <div><span id="register-username-valid"></span></div>
-                            <label>@Resource.UserName</label>
-                            <input id="register-username" class="form-control" type="text" />
+
+                            <label for="username">@Resource.UserName</label>
+                            <input id="register-username" name="username" class="form-control" type="text" />
+                            <label id="register-username-error" class="error" for="register-username"></label>
+
                         </div>
                         <div class="form-group">
-                            <div><span id="register-email-valid"></span></div>
-                            <label>@Resource.Email</label>
-                            <input id="register-email" class="form-control" type="email" />
+                            <label for="email">@Resource.Email</label>
+                            <input id="register-email" name="email" class="form-control" type="email" />
+                            <label id="register-email-error" class="error" for="register-email"></label>
+
                         </div>
                         <div class="form-group">
-                            <div><span id="register-password-valid"></span></div>
-                            <label>@Resource.Password</label>
-                            <input id="register-password" class="form-control" type="text" />
+                            <label for="password">@Resource.Password</label>
+                            <input id="register-password" name="password" class="form-control" type="text" />
+                            <label id="register-password-error" class="error" for="register-password"></label>
                         </div>
                         <div class="form-group">
-                            <div><span id="register-passwordconfirm-valid"></span></div>
-                            <label>@Resource.ConfirmPassword</label>
-                            <input id="register-passwordConfirm" class="form-control" type="text" />
+                            <label for="password_confirm">@Resource.ConfirmPassword</label>
+                            <input id="register-passwordConfirm" name="password_confirm" class="form-control" type="text" />
+                            <label id="register-passwordConfirm-error" class="error" for="register-passwordConfirm"></label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -111,12 +116,18 @@
         </div>
     </div>
 
+    <div id="text"></div>
+
+
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Resources/GetResources")"></script>
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom");
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
 
 
 

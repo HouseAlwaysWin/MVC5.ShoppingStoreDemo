@@ -10,7 +10,7 @@ namespace ShoppingStore
         {
 
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new CultureAttribute());
+            //filters.Add(new CultureAttribute());
         }
     }
 }

@@ -16,12 +16,14 @@ namespace ShoppingStore.Infrastructure.Filters
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
+            var userLang = HttpContext.Current.Request.UserLanguages;
+
             // Attempt to read the culture cookie from Request
             HttpCookie cultureCookie = HttpContext.Current.Request.Cookies["culture"];
             if (cultureCookie == null)
             {
                 cultureCookie = new HttpCookie("culture");
-                cultureCookie.Value = "zh-tw";
+                cultureCookie.Value = userLang[0];
                 HttpContext.Current.Response.Cookies.Add(cultureCookie);
             }
             Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureCookie.Value);
