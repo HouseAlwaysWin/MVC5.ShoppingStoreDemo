@@ -61,10 +61,18 @@
                             <input id="login-password" name="password" class="form-control" type="password" />
                             <label id="login-password-error" class="error" for="login-password"></label>
                         </div>
+                        <h5>
+                            @Resource.NoReceiveEmail
+                            <a href="#" id="sendEmailInput" data-toggle="modal" data-target="#sendEmailModal">@Resource.SendAgain</a>
+                        </h5>
+                        <h5>
+                            @Resource.GoRegister
+                            <a href="#" id="login-register" data-toggle="modal" data-target="#registerModal">@Resource.Register</a>
+                        </h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.Cancel</button>
                         <button type="submit" class="btn btn-primary">@Resource.Login</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.Cancel</button>
                     </div>
                 </form>
             </div>
@@ -72,12 +80,31 @@
     </div>
 
 
+    <div id="sendEmailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <form id="emailForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="send_email">@Resource.Email</label>
+                            <input id="send_mail" name="send_email" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="@Resource.Send" />
+                        <button id="email_goback" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">@Resource.GoBack</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">@Resource.Register</h5>
-                    <div><span id="summary-valid"></span></div>
+                    <div id="register-error-message"></div>
                 </div>
 
                 <form id="registerForm">
@@ -98,30 +125,35 @@
                         </div>
                         <div class="form-group">
                             <label for="password">@Resource.Password</label>
-                            <input id="register-password" name="password" class="form-control" type="text" />
+                            <input id="register-password" name="password" class="form-control" type="password" />
                             <label id="register-password-error" class="error" for="register-password"></label>
                         </div>
                         <div class="form-group">
                             <label for="password_confirm">@Resource.ConfirmPassword</label>
-                            <input id="register-passwordConfirm" name="password_confirm" class="form-control" type="text" />
+                            <input id="register-passwordConfirm" name="password_confirm" class="form-control" type="password" />
                             <label id="register-passwordConfirm-error" class="error" for="register-passwordConfirm"></label>
                         </div>
+                        <h5>
+                            @Resource.GoLogin
+                            <a href="#" id="register-login" data-toggle="modal" data-target="#loginModal">@Resource.Login</a>
+                        </h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.Cancel</button>
                         <button type="submit" class="btn btn-primary">@Resource.Register</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.Cancel</button>
                     </div>
                 </form>
+
+
             </div>
         </div>
     </div>
 
-    <div id="text"></div>
+
 
 
 
     @Scripts.Render("~/bundles/jquery")
-    <script src="@Url.Content("~/Resources/GetResources")"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/custom");
     @RenderSection("scripts", required: false)

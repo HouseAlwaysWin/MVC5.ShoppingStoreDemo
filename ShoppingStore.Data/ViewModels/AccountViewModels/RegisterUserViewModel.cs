@@ -24,14 +24,15 @@ namespace ShoppingStore.Data.ViewModels.AccountViewModels
 
         [Required]
         [DataType(DataType.Password)]
-        [PasswordTooShort(5)]
         [Display(Name = "Password",
             ResourceType = typeof(Resource))]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Compare("Password",
+            ErrorMessageResourceName = "ComfirmError",
+            ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "ConfirmPassword",
             ResourceType = typeof(Resource))]
         public string ConfirmPassword { get; set; }

@@ -29,11 +29,11 @@ namespace ShoppingStore
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var jsonFormatter =
-                config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            //var jsonFormatter =
+            //    config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             // Set json format to camelcase
-            jsonFormatter.SerializerSettings.ContractResolver =
-                new CamelCasePropertyNamesContractResolver();
+            //jsonFormatter.SerializerSettings.ContractResolver =
+            //    new CamelCasePropertyNamesContractResolver();
         }
     }
 }

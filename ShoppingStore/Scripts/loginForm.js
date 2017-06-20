@@ -4,7 +4,49 @@
     loginFormFunc();
     registerFormFunc();
 
+    modalChangeGroup();
+
+
 });
+
+
+var modalChanger = function (button, dismissModal) {
+    button.on('click', function (e) {
+        e.preventDefault();
+        dismissModal.modal('toggle');
+        dismissModal.on('hidden.bs.modal', function () {
+            $('body').addClass('modal-open');
+        });
+    })
+}
+
+
+var modalChangeGroup = function () {
+    // modals
+    var loginmodal = $('#loginModal');
+    var emailmodal = $('#sendEmailModal');
+    var registermodal = $('#registerModal');
+
+    // login page btn
+    var registerBtn = $('#login-register');
+    var emailBtn = $('#sendEmailInput');
+
+    // email page btn
+    var loginBackBtn = $('#email_goback');
+
+    // register page btn
+    var loginBtn = $('#register-login');
+
+    // login changer
+    modalChanger(registerBtn, loginmodal);
+    modalChanger(emailBtn, loginmodal);
+
+    // register changer
+    modalChanger(loginBtn, registermodal);
+
+    // email changer
+    modalChanger(loginBackBtn, emailmodal);
+}
 
 
 var loginFormFunc = function () {
@@ -14,7 +56,7 @@ var loginFormFunc = function () {
     $('#logoutButton').on('click', function (e) {
         $.ajax({
             url: "api/account/logout",
-            type: "POST",
+            type: "POST"
         }).done(function () {
             location.reload();
         }).fail(function () {
@@ -35,7 +77,7 @@ var loginFormFunc = function () {
             url: "/token",
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
-            data: loginModel,
+            data: loginModel
         })
         .done(function (data) {
             $.ajaxSetup({ headers: "bearer " + data.access_token });
@@ -59,15 +101,15 @@ var loginFormFunc = function () {
         rules: {
             username: {
                 required: true,
-                minlength: 5,
+                minlength: 6
             },
             password: {
                 required: true,
-                minlength: 5
+                minlength: 6
             }
         }
     });
-}
+};
 
 
 
@@ -90,7 +132,7 @@ var registerFormFunc = function () {
             "ConfirmPassword": $('#register-passwordConfirm').val()
         };
 
-        var summaryValid = $('#summary-valid');
+        var summaryMessage = $('#register-error-message');
 
         $.ajax({
             url: "api/account/register",
@@ -103,23 +145,23 @@ var registerFormFunc = function () {
 
         }).fail(function (jqXHR, textStatus, data) {
             var error = $.parseJSON(jqXHR.responseText);
-            var summaryError = error.modelState;
+            var summaryError = error.ModelState;
             if (summaryError) {
                 $.each(summaryError, function (index, value) {
-                    summaryValid.text(value).css("color", "red");
+                    summaryMessage.text(value).css("color", "red");
                 });
             } else {
-                summaryValid.text("");
+                summaryMessage.text("");
             }
             console.log("Register Failed");
-        })
+        });
     });
 
     form.validate({
         rules: {
             username: {
                 required: true,
-                minlength: 5
+                minlength: 6
             },
             email: {
                 required: true,
@@ -127,11 +169,11 @@ var registerFormFunc = function () {
             },
             password: {
                 required: true,
-                minlength: 5
+                minlength: 6
             },
             password_confirm: {
                 equalTo: "#register-password"
             }
-        },
+        }
     });
-}
+};
