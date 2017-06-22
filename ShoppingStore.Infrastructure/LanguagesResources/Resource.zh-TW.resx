@@ -304,4 +304,10 @@
   <data name="Send" xml:space="preserve">
     <value>傳送</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>忘記密碼?</value>
+  </data>
+  <data name="ResetYourPasswordForm" xml:space="preserve">
+    <value>重設您的密碼</value>
+  </data>
 </root>

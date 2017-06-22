@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Web.Http;
+
+using Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.OAuth;
-using Owin;
-using Microsoft.Owin.Cors;
-using System.Web.Http;
-using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
+using Microsoft.Owin.Cors;
+
 using ShoppingStore.Data.Identity.IdentityManagers;
-using ShoppingStore.Data.Identity.Providers;
-using ShoppingStore.Data;
+using ShoppingStore.Data.Identity.Provider;
 
 [assembly: OwinStartup(typeof(ShoppingStore.Data.Identity.Startup))]
 namespace ShoppingStore.Data.Identity
@@ -20,6 +22,8 @@ namespace ShoppingStore.Data.Identity
     public class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static GoogleOAuth2AuthenticationOptions googleAuthOptions { get; private set; }
+        public static FacebookAuthenticationOptions facebookAuthOptions { get; set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -76,6 +80,7 @@ namespace ShoppingStore.Data.Identity
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+
         }
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
@@ -117,15 +122,24 @@ namespace ShoppingStore.Data.Identity
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            facebookAuthOptions = new FacebookAuthenticationOptions
+            {
+                AppId = "",
+                AppSecret = "",
+                Provider = new FacebookAuthProvider()
+            };
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseFacebookAuthentication(facebookAuthOptions);
+
+            googleAuthOptions = new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = "",
+                ClientSecret = "",
+                Provider = new GoogleAuthProvider()
+            };
+
+            app.UseGoogleAuthentication(googleAuthOptions);
+
         }
 
     }

@@ -70,6 +70,10 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
       <Private>True</Private>
@@ -78,8 +82,16 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Jwt.3.1.0\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -128,6 +140,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
@@ -163,12 +179,15 @@
     <Compile Include="Identity\Provider\ClaimStatement\ExtendedClaimsProvider.cs" />
     <Compile Include="Identity\Provider\ClaimStatement\RolesFromClaims.cs" />
     <Compile Include="Identity\Provider\CustomJwtFormat.cs" />
+    <Compile Include="Identity\Provider\FacebookAuthProvider.cs" />
+    <Compile Include="Identity\Provider\GoogleAuthProvider.cs" />
     <Compile Include="Identity\Provider\UseClaimsAuthManager\AuthenticationManager.cs" />
     <Compile Include="Identity\Provider\UseClaimsAuthManager\Authhandler.cs" />
     <Compile Include="Identity\Provider\UseClaimsAuthManager\AuthorizationManager.cs" />
     <Compile Include="Identity\Provider\UseClaimsFilters\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Identity\ResponseResultModelFactory.cs" />
-    <Compile Include="Identity\Results\ChallengeResult.cs" />
+    <Compile Include="Identity\Results\ChallengeResultWebApi.cs" />
+    <Compile Include="Identity\Results\ChallengeResultMvc.cs" />
     <Compile Include="Identity\Startup.Auth.cs" />
     <Compile Include="Migrations\201706160340519_InitialModel.cs" />
     <Compile Include="Migrations\201706160340519_InitialModel.Designer.cs">
@@ -183,6 +202,8 @@
     <Compile Include="ViewModels\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\RegisterExternalViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\RemoveLoginViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModels\SendEmailViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\UserLoginInfoViewModel.cs" />
     <Compile Include="ViewModels\AudiencesStoreFactory.cs" />

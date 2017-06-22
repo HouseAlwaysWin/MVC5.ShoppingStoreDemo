@@ -14,9 +14,9 @@ namespace ShoppingStore
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/getCultureResources.js",
                         "~/Scripts/jquery.cookie.js",
                         "~/Scripts/jquery.validate.js",
-                        "~/Scripts/getCultureResources.js",
                         "~/Scripts/jquery.validate.override-messages.js",
                         "~/Scripts/jquery.validate.unobtrusive.js"));
 

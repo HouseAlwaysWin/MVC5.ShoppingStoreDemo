@@ -287,7 +287,7 @@ namespace ShoppingStore.Controllers.Api
 
             if (!User.Identity.IsAuthenticated)
             {
-                return new ChallengeResult(provider, this);
+                return new ChallengeResultWebApi(provider, this);
             }
 
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
@@ -300,7 +300,7 @@ namespace ShoppingStore.Controllers.Api
             if (externalLogin.LoginProvider != provider)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                return new ChallengeResult(provider, this);
+                return new ChallengeResultWebApi(provider, this);
             }
 
             AppUser user = await userManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
@@ -400,55 +400,14 @@ namespace ShoppingStore.Controllers.Api
                 return GetErrorResult(result);
             }
 
-            return await SendVerifiedEmail(user.Email);
-        }
-
-
-        public async Task<IHttpActionResult> SendVerifiedEmail(string email)
-        {
-            var user = await userManager.FindByEmailAsync(email);
-            if (user == null)
+            var email = new SendEmailViewModel
             {
-                return NotFound();
-            }
+                Email = user.Email,
+            };
 
-            string code =
-                await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            //return await SendVerifiedEmail(email);
 
-            var callbackUrl =
-                new Uri(Url.Link("ConfirmEmailRoute",
-                new { userId = user.Id, token = code }));
-
-            await userManager.SendEmailAsync(user.Id, "Confirm your account",
-                "Please Confirm your account under this links <a href=\""
-                + callbackUrl +
-                "\">Confirm Link</a>" +
-               "<h6>if this email is not yours,please ignore it.</h6>");
-            Uri locationHeader =
-                new Uri(Url.Link("GetUserById", new { id = user.Id }));
-
-            return Created(locationHeader, ResponseResult.ShowUser(user));
-        }
-
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route(Name = "ConfirmEmailRoute")]
-        public async Task<IHttpActionResult> ConfirmEmail(string userId, string token)
-        {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))
-            {
-                ModelState.AddModelError("", "User Id and Code are required.");
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await userManager.ConfirmEmailAsync(userId, token);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return GetErrorResult(result);
+            return Ok(email);
         }
 
         // POST api/Account/RegisterExternal

@@ -2,7 +2,7 @@
 window.Resources = JSON.parse(localStorage.getItem("resources"));
 
 $.ajax({
-    url: "api/resources/GetResources",
+    url: "/api/resources/GetResources",
     type: "GET",
     contentType: "application/json",
     dataType: "json"

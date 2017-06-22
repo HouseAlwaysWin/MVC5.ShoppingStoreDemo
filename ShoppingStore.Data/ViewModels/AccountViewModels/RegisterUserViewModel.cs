@@ -36,5 +36,6 @@ namespace ShoppingStore.Data.ViewModels.AccountViewModels
         [Display(Name = "ConfirmPassword",
             ResourceType = typeof(Resource))]
         public string ConfirmPassword { get; set; }
+
     }
 }

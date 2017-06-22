@@ -2,7 +2,6 @@
 var overrideErrorMS = function () {
 
 
-    //console.log(Resources["RequiredField"]);
 
 
     var message = $.validator.messages;

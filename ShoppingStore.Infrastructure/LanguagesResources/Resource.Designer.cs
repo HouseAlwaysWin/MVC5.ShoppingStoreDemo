@@ -241,6 +241,15 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forgot your password?.
+        /// </summary>
+        public static string ForgotPassword {
+            get {
+                return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go back.
         /// </summary>
         public static string GoBack {
@@ -561,6 +570,15 @@ namespace ShoppingStore.Infrastructure.LanguagesResources {
         public static string RequiredField {
             get {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset your password form.
+        /// </summary>
+        public static string ResetYourPasswordForm {
+            get {
+                return ResourceManager.GetString("ResetYourPasswordForm", resourceCulture);
             }
         }
         

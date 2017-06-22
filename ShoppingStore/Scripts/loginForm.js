@@ -1,11 +1,10 @@
 ﻿$(function () {
-
     overrideErrorMS();
     loginFormFunc();
     registerFormFunc();
-
+    sendEmailConfirm();
     modalChangeGroup();
-
+    resetEmail();
 
 });
 
@@ -17,8 +16,8 @@ var modalChanger = function (button, dismissModal) {
         dismissModal.on('hidden.bs.modal', function () {
             $('body').addClass('modal-open');
         });
-    })
-}
+    });
+};
 
 
 var modalChangeGroup = function () {
@@ -29,7 +28,8 @@ var modalChangeGroup = function () {
 
     // login page btn
     var registerBtn = $('#login-register');
-    var emailBtn = $('#sendEmailInput');
+    var emailBtn = $('#no-received-email');
+    var forgotBtn = $('#forgot-password');
 
     // email page btn
     var loginBackBtn = $('#email_goback');
@@ -40,13 +40,60 @@ var modalChangeGroup = function () {
     // login changer
     modalChanger(registerBtn, loginmodal);
     modalChanger(emailBtn, loginmodal);
+    modalChanger(forgotBtn, loginmodal);
 
     // register changer
     modalChanger(loginBtn, registermodal);
 
     // email changer
     modalChanger(loginBackBtn, emailmodal);
-}
+};
+
+var sendEmailConfirm = function () {
+    var form = $('#emailForm');
+
+    var forgotBtn = $('#forgot-password');
+    forgotBtn.click(function (e) {
+        e.preventDefault();
+        form.addClass("forgot").removeClass("noEmail");
+    });
+
+    var noReceivedBtn = $('#no-received-email');
+    noReceivedBtn.click(function (e) {
+        e.preventDefault();
+        form.addClass("noEmail").removeClass("forgot");
+    });
+
+    form.on('submit', function (e) {
+        e.preventDefault();
+        var email = $('#send_email').val();
+        var model = {
+            Email: $('#send_email').val()
+        };
+
+        var url;
+        if (form.hasClass("forgot")) {
+            url = "Account/ForgotPassword";
+        } else if (form.hasClass("noEmail")) {
+            url = "Account/SendVerifiedEmail";
+        }
+        sendEmailAjax(url, model);
+    });
+};
+
+
+var sendEmailAjax = function (sendUrl, email) {
+    $.ajax({
+        url: sendUrl,
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(email),
+        dataType: "json"
+    }).done(function (data) {
+        console.log(data);
+    }).fail(function (jqXHR, statusText, data) {
+    });
+};
 
 
 var loginFormFunc = function () {
@@ -124,12 +171,16 @@ var registerFormFunc = function () {
             $(this).removeData('bs.modal');
         });
 
+
         // Binding text content
-        var registerModel = {
+        var returnUrl = document.location.origin + "/Account/ConfirmEmail?";
+        console.log(returnUrl);
+        var model = {
             "UserName": $('#register-username').val(),
             "Email": $('#register-email').val(),
             "Password": $('#register-password').val(),
-            "ConfirmPassword": $('#register-passwordConfirm').val()
+            "ConfirmPassword": $('#register-passwordConfirm').val(),
+            "ReturnUrl": returnUrl
         };
 
         var summaryMessage = $('#register-error-message');
@@ -138,11 +189,12 @@ var registerFormFunc = function () {
             url: "api/account/register",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(registerModel)
+            data: JSON.stringify(model)
         }).done(function (data) {
             $('#registerModal').modal('toggle');
-            location.reload();
+            $('#register-success').modal('toggle');
 
+            sendEmailAjax(data);
         }).fail(function (jqXHR, textStatus, data) {
             var error = $.parseJSON(jqXHR.responseText);
             var summaryError = error.ModelState;
@@ -177,3 +229,24 @@ var registerFormFunc = function () {
         }
     });
 };
+
+var resetEmail = function () {
+    var form = $('#reset-email-form');
+
+    form.validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true
+            },
+            NewPassword: {
+                required: true,
+                minlength: 6
+            },
+            ConfirmPassword: {
+                equalTo: "#reset_newpassword"
+            }
+
+        }
+    });
+}

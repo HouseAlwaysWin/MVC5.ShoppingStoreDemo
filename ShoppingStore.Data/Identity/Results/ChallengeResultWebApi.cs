@@ -9,9 +9,9 @@ using System.Web.Http;
 
 namespace ShoppingStore.Data.Results
 {
-    public class ChallengeResult : IHttpActionResult
+    public class ChallengeResultWebApi : IHttpActionResult
     {
-        public ChallengeResult(string loginProvider, ApiController controller)
+        public ChallengeResultWebApi(string loginProvider, ApiController controller)
         {
             LoginProvider = loginProvider;
             Request = controller.Request;
