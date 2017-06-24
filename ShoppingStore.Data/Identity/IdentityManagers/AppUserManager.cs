@@ -3,8 +3,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using ShoppingStore.Infrastructure.TFServices;
 using ShoppingStore.Domain.IdentityModels;
+using ShoppingStore.Infrastructure.Services;
 
 namespace ShoppingStore.Data.Identity.IdentityManagers
 {

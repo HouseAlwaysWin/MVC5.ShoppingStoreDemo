@@ -282,7 +282,8 @@ namespace ShoppingStore.Controllers.Api
         {
             if (error != null)
             {
-                return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
+                //return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
+                return BadRequest(Uri.EscapeDataString(error));
             }
 
             if (!User.Identity.IsAuthenticated)
@@ -290,7 +291,8 @@ namespace ShoppingStore.Controllers.Api
                 return new ChallengeResultWebApi(provider, this);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            ExternalLoginData externalLogin =
+                ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             if (externalLogin == null)
             {
@@ -312,18 +314,26 @@ namespace ShoppingStore.Controllers.Api
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-                   OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(userManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
+                ClaimsIdentity oAuthIdentity =
+                    await user.GenerateUserIdentityAsync(
+                        userManager, OAuthDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                ClaimsIdentity cookieIdentity =
+                    await user.GenerateUserIdentityAsync(
+                        userManager, CookieAuthenticationDefaults.AuthenticationType);
+
+                AuthenticationProperties properties =
+                    ApplicationOAuthProvider.CreateProperties(user.UserName);
+
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity identity =
+                    new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+
                 Authentication.SignIn(identity);
             }
 

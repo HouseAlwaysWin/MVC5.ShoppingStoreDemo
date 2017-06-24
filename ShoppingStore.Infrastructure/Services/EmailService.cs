@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingStore.Infrastructure.TFServices
+namespace ShoppingStore.Infrastructure.Services
 {
     public class EmailService : IIdentityMessageService
     {

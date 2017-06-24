@@ -9,6 +9,8 @@ namespace ShoppingStore.Data.ViewModels.AccountViewModels
 {
     public class SendEmailViewModel
     {
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }

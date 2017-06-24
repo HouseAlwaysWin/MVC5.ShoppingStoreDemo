@@ -166,8 +166,8 @@
     <Compile Include="PasswordValidators\RequireLowercase.cs" />
     <Compile Include="PasswordValidators\RequireNonLetterOrDigit.cs" />
     <Compile Include="PasswordValidators\RequireUppercase.cs" />
-    <Compile Include="TFServices\EmailService.cs" />
-    <Compile Include="TFServices\SmsService.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\SmsService.cs" />
     <Compile Include="LanguagesResources\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>

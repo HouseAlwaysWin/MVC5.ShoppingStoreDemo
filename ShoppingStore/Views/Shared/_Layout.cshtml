@@ -71,6 +71,9 @@
                         <h5>
                             <a href="#" id="forgot-password" data-toggle="modal" data-target="#sendEmailModal">@Resource.ForgotPassword</a>
                         </h5>
+                        <h5>
+                           <a href="#" id="forgot-password" data-toggle="modal" data-target="#sendEmailModal"></a>
+                        </h5>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">@Resource.Login</button>
@@ -92,6 +95,7 @@
                         <div class="form-group">
                             <label for="send_email">@Resource.Email</label>
                             <input id="send_email" name="send_email" type="text" class="form-control" />
+                            <label id="send_email-error" class="error" for="send_email"></label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -155,11 +159,10 @@
         </div>
     </div>
 
-    <div class="modal fade" id="register-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="message-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-body">
-                    <h4>Register Successful,Please go to your email account confirm your email</h4>
+                <div class="modal-body" id="message-success-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>

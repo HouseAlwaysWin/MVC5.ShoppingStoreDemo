@@ -9,15 +9,99 @@
 });
 
 
+
+
 var modalChanger = function (button, dismissModal) {
     button.on('click', function (e) {
         e.preventDefault();
-        dismissModal.modal('toggle');
-        dismissModal.on('hidden.bs.modal', function () {
-            $('body').addClass('modal-open');
-        });
+        modalDismiss(dismissModal);
     });
 };
+
+var modalMessage = function (message) {
+    $('#message-success-body').html(message);
+    $('#message-success').modal('toggle');
+}
+
+var modalDismiss = function (dismissModal) {
+    dismissModal.modal('hide');
+    dismissModal.on('hidden.bs.modal', function () {
+        $('body').addClass('modal-open');
+    });
+}
+
+var sendEmailAjax = function (sendUrl, email, message, dismissModal) {
+    $.ajax({
+        url: sendUrl,
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(email),
+        dataType: "json"
+    }).done(function (data) {
+        modalDismiss(dismissModal);
+        modalMessage(message);
+
+    }).fail(function (jqXHR, statusText, data) {
+        console.log(statusText);
+        if (jqXHR.status == 200) {
+            modalDismiss(dismissModal);
+            modalMessage(message);
+        }
+    });
+};
+
+var sendEmailConfirm = function () {
+    var form = $('#emailForm');
+
+    var forgotBtn = $('#forgot-password');
+    forgotBtn.click(function (e) {
+        e.preventDefault();
+        form.addClass("forgot").removeClass("noEmail");
+    });
+
+    var noReceivedBtn = $('#no-received-email');
+    noReceivedBtn.click(function (e) {
+        e.preventDefault();
+        form.addClass("noEmail").removeClass("forgot");
+    });
+
+    form.on('submit', function (e) {
+        e.preventDefault();
+
+        $('#sendEmailModal').on('hidden.bs.modal', '.modal-body', function () {
+            $(this).removeData('bs.modal');
+        });
+
+        var email = $('#send_email').val();
+        var model = {
+            Email: $('#send_email').val()
+        };
+
+        var url;
+        if (form.hasClass("forgot")) {
+            url = "Account/ForgotPassword";
+        } else if (form.hasClass("noEmail")) {
+            url = "Account/SendVerifiedEmail";
+        }
+        var message = "Send Email Success";
+        var dismissModal = $('#sendEmailModal');
+        sendEmailAjax(url, model, message, dismissModal);
+    });
+
+    form.validate({
+        rules: {
+            send_email: {
+                required: true,
+                email: true
+            }
+        }
+    })
+};
+
+
+
+
+
 
 
 var modalChangeGroup = function () {
@@ -47,52 +131,6 @@ var modalChangeGroup = function () {
 
     // email changer
     modalChanger(loginBackBtn, emailmodal);
-};
-
-var sendEmailConfirm = function () {
-    var form = $('#emailForm');
-
-    var forgotBtn = $('#forgot-password');
-    forgotBtn.click(function (e) {
-        e.preventDefault();
-        form.addClass("forgot").removeClass("noEmail");
-    });
-
-    var noReceivedBtn = $('#no-received-email');
-    noReceivedBtn.click(function (e) {
-        e.preventDefault();
-        form.addClass("noEmail").removeClass("forgot");
-    });
-
-    form.on('submit', function (e) {
-        e.preventDefault();
-        var email = $('#send_email').val();
-        var model = {
-            Email: $('#send_email').val()
-        };
-
-        var url;
-        if (form.hasClass("forgot")) {
-            url = "Account/ForgotPassword";
-        } else if (form.hasClass("noEmail")) {
-            url = "Account/SendVerifiedEmail";
-        }
-        sendEmailAjax(url, model);
-    });
-};
-
-
-var sendEmailAjax = function (sendUrl, email) {
-    $.ajax({
-        url: sendUrl,
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(email),
-        dataType: "json"
-    }).done(function (data) {
-        console.log(data);
-    }).fail(function (jqXHR, statusText, data) {
-    });
 };
 
 
@@ -191,10 +229,10 @@ var registerFormFunc = function () {
             contentType: "application/json",
             data: JSON.stringify(model)
         }).done(function (data) {
-            $('#registerModal').modal('toggle');
-            $('#register-success').modal('toggle');
-
-            sendEmailAjax(data);
+            console.log(data);
+            var dismissModal = $('#registerModal');
+            var message = "Register Success";
+            sendEmailAjax('/account/sendverifiedemail', data, message, dismissModal);
         }).fail(function (jqXHR, textStatus, data) {
             var error = $.parseJSON(jqXHR.responseText);
             var summaryError = error.ModelState;

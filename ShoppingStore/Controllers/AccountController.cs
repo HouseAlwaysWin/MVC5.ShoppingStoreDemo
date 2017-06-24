@@ -42,10 +42,15 @@ namespace ShoppingStore.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendVerifiedEmail(SendEmailViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(ModelState);
+            }
+
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-
+                return Json("Success");
             }
 
             string code =
