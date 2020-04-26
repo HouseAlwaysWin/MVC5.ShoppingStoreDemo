@@ -19,7 +19,7 @@ namespace ShoppingStoreRepository.Repositories
         private IEnumerable<PropertyInfo> GetProperties => typeof(T).GetProperties();
         public BaseRepository(IDbTransaction transaction)
         {
-            _tableName = typeof(T).FullName;
+            _tableName = typeof(T).Name;
             Transaction = transaction;
         }
 
@@ -29,22 +29,39 @@ namespace ShoppingStoreRepository.Repositories
             Transaction = transaction;
         }
 
-        public virtual void Create(T model)
+        public virtual void Create(T model, string key = null, bool ignoreKey = true)
         {
+            string pk = $"{_tableName}ID";
+
+            if (!string.IsNullOrEmpty(key))
+            {
+                pk = key;
+            }
+
             var insertQuery = new StringBuilder($"INSERT INTO {_tableName} (");
             var props = GenerateListOfProperties(GetProperties);
+
             foreach (var prop in props)
             {
+                if (ignoreKey && prop == pk)
+                {
+                    continue;
+                }
                 insertQuery.Append($"[{prop}],");
             }
             insertQuery.Remove(insertQuery.Length - 1, 1).Append(") VALUES (");
             foreach (var prop in props)
             {
+                if (ignoreKey && prop == pk)
+                {
+                    continue;
+                }
                 insertQuery.Append($"@{prop},");
             }
             insertQuery.Remove(insertQuery.Length - 1, 1).Append(")");
+            var sqlString = insertQuery.ToString();
 
-            Connection.Execute(insertQuery.ToString(), model, transaction: Transaction);
+            Connection.Execute(sqlString, model, transaction: Transaction);
         }
 
         public virtual async Task CreateAsync(T model)

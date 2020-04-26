@@ -1,21 +1,19 @@
+﻿// NUnit 3 tests
+// See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using ShoppingStoreDomain.Models;
-using ShoppingStoreRepository;
-using System;
-using System.Configuration;
 
-namespace Tests
+namespace ShoppingStoreRepository.Test
 {
-    public class RepositoryTest
+    [TestFixture]
+    public class BaseRepositoryTest
     {
         private string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=E:\\Projects\\ShoppingStoreDemo\\ShoppingStoreRepository.Test\\ShoppingDBTest.mdf;Integrated Security=True";
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
-        public void CreateTable()
+        public void CanCreateTable()
         {
             UnitOfWork uow = new UnitOfWork(connectionString);
             uow.ProductRepository.Create(new Product
@@ -26,6 +24,7 @@ namespace Tests
                 EditedDate = DateTime.UtcNow
             }); ;
             uow.Commit();
+
             Assert.Pass();
         }
     }

@@ -6,7 +6,7 @@ namespace ShoppingStoreRepository.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        void Create(T model);
+        void Create(T model, string key = null, bool ignoreKey = true);
         Task CreateAsync(T model);
         void Delete(string id, string key);
         void Delete<TId>(TId id, string key);
