@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Reflection;
 using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace ShoppingStoreRepository.Repositories
 {
